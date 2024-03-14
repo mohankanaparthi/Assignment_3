@@ -1,0 +1,38 @@
+# Importing required libraries
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+# Setting up the webdriver
+driver = webdriver.Chrome()
+
+# LinkedIn login page
+driver.get("https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin")
+
+# Entering username
+username_field = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.ID, "username")))
+username_field.send_keys("mohankanaparthi185@gmail.com")
+username_field.send_keys(Keys.RETURN)
+
+# Entering password
+password_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "password")))
+password_field.send_keys("Nandu1818@")
+password_field.send_keys(Keys.RETURN)
+
+# Wait until the profile icon is clickable
+WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "ember16")))
+
+# Clicking on the profile icon
+profile_icon = driver.find_element(By.ID, "ember16")
+profile_icon.click()
+
+# Wait until the logout link is clickable
+logout_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "a[href*='logout']")))
+
+# Logging out
+logout_link.click()
+
+# Closing the webdriver
+driver.quit()
